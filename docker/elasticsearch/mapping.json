@@ -1,0 +1,41 @@
+{
+  "settings": {
+    "analysis": {
+      "tokenizer": {
+        "kuromoji_tokenizer": {
+          "type": "kuromoji_tokenizer",
+          "mode": "normal"
+        },
+        "ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 2
+        }
+      },
+      "analyzer": {
+        "kuromoji_analyzer": {
+          "type": "custom",
+          "tokenizer": "kuromoji_tokenizer",
+          "filter": ["kuromoji_stemmer", "lowercase"]
+        },
+        "ngram_analyzer": {
+          "type": "custom",
+          "tokenizer": "ngram_tokenizer",
+          "filter": ["lowercase"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text_ja": {
+        "type": "text",
+        "analyzer": "kuromoji_analyzer"
+      },
+      "text_cjk": {
+        "type": "text",
+        "analyzer": "ngram_analyzer"
+      }
+    }
+  }
+}

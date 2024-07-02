@@ -1,0 +1,24 @@
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "multi_match": {
+            "query": "遊",
+            "fields": ["text_ja", "text_cjk"],
+            "type": "phrase",
+            "zero_terms_query": "none"
+          }
+        },
+        {
+          "multi_match": {
+            "query": "☆",
+            "fields": ["text_ja", "text_cjk"],
+            "type": "phrase",
+            "zero_terms_query": "none"
+          }
+        }
+      ]
+    }
+  }
+}

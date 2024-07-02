@@ -1,0 +1,22 @@
+version: '3'
+tasks:
+  setup:
+    cmds:
+      #- docker compose up -d
+      - until $(curl --output /dev/null --silent --head http://localhost:9200/_cluster/health); do sleep 1; done
+      - curl 'http://localhost:9200/my_index' -X DELETE
+      - curl 'http://localhost:9200/my_index' -X PUT -H "Content-Type:application/json" --data-binary @docker/elasticsearch/mapping.json
+      - curl 'http://localhost:9200/my_index/_bulk' -X POST -H "Content-Type:application/x-ndjson" --data-binary @docker/elasticsearch/documents.jsonl
+    desc: setup elasticsearch
+  search_ex1:
+    cmds: 
+      - curl 'http://localhost:9200/_search?pretty' -X GET -H "Content-Type:application/json" --data-binary @docker/elasticsearch/query_example1.json
+    desc: search example1 query
+  search_ex2:
+    cmds: 
+      - curl 'http://localhost:9200/_search?pretty' -X GET -H "Content-Type:application/json" --data-binary @docker/elasticsearch/query_example2.json
+    desc: search example2 query
+  search_ex3:
+    cmds: 
+      - curl 'http://localhost:9200/_search?pretty' -X GET -H "Content-Type:application/json" --data-binary @docker/elasticsearch/query_example3.json
+    desc: search example3 query

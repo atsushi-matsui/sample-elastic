@@ -1,0 +1,10 @@
+{
+  "query": {
+    "query_string": {
+      "query": "遊 ☆",
+      "default_operator": "AND",
+      "fields": ["text_ja", "text_cjk"], 
+      "type": "phrase"
+    }
+  }
+}
