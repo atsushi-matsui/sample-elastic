@@ -2,7 +2,7 @@ version: '3'
 tasks:
   setup:
     cmds:
-      #- docker compose up -d
+      - docker compose up -d
       - until $(curl --output /dev/null --silent --head http://localhost:9200/_cluster/health); do sleep 1; done
       - curl 'http://localhost:9200/my_index' -X DELETE
       - curl 'http://localhost:9200/my_index' -X PUT -H "Content-Type:application/json" --data-binary @docker/elasticsearch/mapping.json
